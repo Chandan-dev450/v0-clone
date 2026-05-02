@@ -1,8 +1,12 @@
+"use client";
+import { Button } from '@/components/ui/button'
+import { inngest } from '@/inngest/client'
 import ProjectsForm from '@/modules/home/components/project-form'
 import Image from 'next/image'
 import React from 'react'
 
 const Page = () => {
+
   return (
     <div className='flex items-center justify-center w-full px-4 py-8'>
       <div className='max-w-full w-full'>

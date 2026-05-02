@@ -12,6 +12,8 @@ import { Spinner } from "@/components/ui/spinner"
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Form, FormField } from "@/components/ui/form";
+import { onInvoke } from "../actions";
+import { toast } from "sonner";
 
 const formSchema = z.object({
     content: z.string().min(1, "Project description required").max(1000, "Project description is too long")
@@ -88,17 +90,30 @@ const ProjectsForm = () => {
         try {
             console.log(values)
         } catch (error) {
-
+            console.log(error)
         }
     }
 
     const isPending = form.formState.isSubmitting;
     const isButtonDisabled = isPending || !form.watch("content").trim()
-    
+
+    const onInvokeAI = async() => {
+        try {
+            const res = await onInvoke()
+            console.log(res)
+            toast.success("Done")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className="space-y-8">
 
             {/* Template Grid */}
+            <Button onClick={onInvokeAI}>
+                Invoke AI Agent
+            </Button>
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {PROJECT_TEMPLATES.map((template, index) => (
                     <button
